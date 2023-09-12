@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -19,11 +20,16 @@ func main() {
 		panic("не является математической операцией")
 	}
 
+	if strings.ContainsRune(a, '.') || strings.ContainsRune(b, '.') {
+		panic("только целые числа")
+	}
+
 	_a, okA := strconv.Atoi(a)
 	_b, okB := strconv.Atoi(b)
 
 	if okA == nil && okB == nil {
-		if (_a > 0 && _a <= 10) && (_b > 0 && _b <= 10) {
+		if ((_a > 0 && _a <= 10) || _a%1 == 0) &&
+			(_b > 0 && _b <= 10) {
 			res := strconv.Itoa(operate(_a, _b, operator))
 			fmt.Println(res)
 		} else {
